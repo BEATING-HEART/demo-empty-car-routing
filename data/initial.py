@@ -1,6 +1,12 @@
 import numpy as np
 
-REGION_NUM = 2  # region number in the system
-CAR_NUM = 2000  # total car in the system.
+from utils.utils import random_allocation
 
-# CAR_INITIAL_DISTRIBUTION = 
+REGION_NUM = 2  
+"""region number in the system"""
+
+CAR_NUM = 1200
+"""total car in the system"""
+
+CAR_DISTRIBUTION_INITIAL = random_allocation(CAR_NUM, REGION_NUM)
+"""car distribucation (initial)"""
