@@ -59,7 +59,7 @@ def iteration(time):
         # 记录了到达不同区域空车的情况。
 
         empty_car_routing = np.multiply(full_car_total, EMPTY_CAR_ROUTING_MATRIX_Q.T).T
-        car_distribution = car_distribution + car_arrival - np.sum(empty_car_routing, axis=)
+        car_distribution = car_distribution + car_arrival - np.sum(empty_car_routing, axis=1)
         
 
         # cars_update = cars_remain + np.sum(full_car_arrival, axis=0)
