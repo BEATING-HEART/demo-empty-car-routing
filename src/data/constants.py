@@ -1,3 +1,6 @@
+CONVERGED = False
+"""算法收敛则为true 否则为false"""
+
 CAR_STATUS_EMPTY = 1
 CAR_STATUS_FULL = 2
 
