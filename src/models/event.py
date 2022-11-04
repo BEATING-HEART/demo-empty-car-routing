@@ -1,9 +1,10 @@
 
 class Event:
-    def __init__(self, from_, to_, etype_):
-        self.from_ = from_
-        self.to_ = to_
-        self.etype_ = etype_
+    def __init__(self, _from, _to, _time, _etype):
+        self._from = _from
+        self._to = _to
+        self._time = _time
+        self._etype = _etype
 
     def __repr__(self):
-        return 'Event({!r})'.format(self.etype_)
+        return 'Event(from{!r}, to{!r}, etype{!r})'.format(self._from, self._to, self._etype)

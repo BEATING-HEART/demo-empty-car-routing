@@ -23,5 +23,10 @@ class Heap:
         self._index += 1
         return temp
 
+    def empty(self):
+        if self._capacity == 0:
+            return True
+        return False
 
+heap = Heap()
 
