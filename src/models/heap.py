@@ -27,6 +27,9 @@ class Heap:
         if self._capacity == 0:
             return True
         return False
+    
+    def print_heap(self):
+        print(self._heap)
 
 heap = Heap()
 

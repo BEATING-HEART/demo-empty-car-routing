@@ -9,11 +9,15 @@ REGION_NUM = 2
 CAR_NUM = 1200
 """total car in the system"""
 
-CAR_DISTRIBUTION_INITIAL = random_allocation(CAR_NUM, REGION_NUM)
-# CAR_DISTRIBUTION_INITIAL = np.random.dirichlet(np.ones(REGION_NUM), size=1)
+# CAR_DISTRIBUTION_INITIAL = random_allocation(CAR_NUM, REGION_NUM)
+CAR_DISTRIBUTION_INITIAL = np.array([800, 400])
 """car distribucation (initial)"""
 
-TRAVEL_MATRIX_P = np.random.dirichlet(np.ones((REGION_NUM)), size=REGION_NUM)
+TRAVEL_MATRIX_P = np.array([
+    [0, 1],
+    [1, 0]
+])
+# TRAVEL_MATRIX_P = np.random.dirichlet(np.ones((REGION_NUM)), size=REGION_NUM)
 """size=[r region * r region], travel probability matrix of the system."""
 
 PASSENGER_ARRIVIAL_LAMBDA = np.array([800, 400])
