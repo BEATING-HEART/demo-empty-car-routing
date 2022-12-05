@@ -1,5 +1,19 @@
 import numpy as np
 
+# REGION_NUMBER = 2
+
+# TRAVEL_MATRIX_P = np.array([
+#     [0, 1], 
+#     [1, 0]
+# ])
+
+# CUSTOMER_ARRIVIAL_LAMBDA = np.array([2/3, 1/3])
+
+# RECIPROCAL_MU_MATRIX = np.array([
+#     [1., 1.], 
+#     [1., 1.]
+# ])
+
 REGION_NUMBER = 9
 
 REGION_INDEX = np.array([10, 11, 18, 13, 19, 27, 45, 47, 50]) 
