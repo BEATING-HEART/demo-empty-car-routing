@@ -20,6 +20,7 @@ if __name__ == "__main__":
     e_matrix = cp.Variable((REGION_NUMBER, REGION_NUMBER), pos=True)
     f_matrix = cp.Variable((REGION_NUMBER, REGION_NUMBER), pos=True)
     
+    
     obj_expression = 0
     sup_reward = 0
     car_sum = 0
@@ -30,19 +31,20 @@ if __name__ == "__main__":
             obj_expression += availability_vector[i] * lambda_vector[i] * p_matrix[i, j]    # objective function
             sup_reward += lambda_vector.value[i] * p_matrix.value[i][j] # sup_reward (availability = 1)
             constraints += [lambda_vector[i] * p_matrix[i, j] * availability_vector[i] == mu_matrix[i, j] * f_matrix[i, j]]
-            if j != i:
-                constraints += [mu_matrix[i, j] * e_matrix[i, j] <= mu_matrix[:, i] @ f_matrix[:, i]]
+            # if j != i:
+            #     constraints += [mu_matrix[i, j] * e_matrix[i, j] <= mu_matrix[:, i] @ f_matrix[:, i]]
             constraints += [e_matrix[i, j] >= 0, e_matrix[i, j] <= 1, f_matrix[i, j] >= 0, f_matrix[i, j] <= 1]
             car_sum += (e_matrix[i, j] + f_matrix[i, j])
             
-        constraints += [mu_matrix[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] <= lambda_vector[i] * availability_vector[i]]
-        constraints += [lambda_vector[i] * availability_vector[i] <= mu_matrix[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] + mu_matrix[:, i] @ f_matrix[:, i]]
+        # constraints += [mu_matrix[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] <= lambda_vector[i] * availability_vector[i]]
+        # constraints += [lambda_vector[i] * availability_vector[i] <= mu_matrix[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] + mu_matrix[:, i] @ f_matrix[:, i]]
         constraints += [lambda_vector[i] * availability_vector[i] + mu_matrix[i, :] @ e_matrix[i, :] - mu_matrix[i, i] * e_matrix[i, i] 
-                        == mu_matrix.value[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] + mu_matrix[:, i] @ f_matrix[:, i]]
+                        == mu_matrix[:, i] @ e_matrix[:, i] - mu_matrix[i, i] * e_matrix[i, i] + mu_matrix[:, i] @ f_matrix[:, i]]
         constraints += [availability_vector[i] >= 0, availability_vector[i] <= 1]
         # constraints += [(1-availability_vector[i]) * e_matrix[i][i] == 0]
     constraints += [car_sum == 1]    
     
+
     
     obj_func = cp.Maximize(obj_expression)
     prob = cp.Problem(obj_func, constraints)
@@ -71,3 +73,4 @@ if __name__ == "__main__":
     # print(np.sum(TRAVEL_MATRIX_P, axis=1))
     # print(np.reciprocal(RECIPROCAL_MU_MATRIX))
 
+    print(p_matrix.value[i, :] @ mu_matrix.value[i, :])
