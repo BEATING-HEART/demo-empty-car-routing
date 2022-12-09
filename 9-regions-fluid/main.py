@@ -53,11 +53,15 @@ if __name__ == "__main__":
     
     print(prob.status)
     print(prob.value)
-    print(sup_reward)
+    # print(sup_reward)
     
     print(np.round(availability_vector.value, decimals=5))
     print(np.round(e_matrix.value, decimals=5))
     print(np.round(f_matrix.value, decimals=5))
+    
+    # print(p_matrix.value)
+    # print(mu_matrix.value)
+    # print(lambda_vector.value)
     
     q_matrix = np.zeros((REGION_NUMBER, REGION_NUMBER))
     for i in range(REGION_NUMBER):
@@ -73,4 +77,4 @@ if __name__ == "__main__":
     # print(np.sum(TRAVEL_MATRIX_P, axis=1))
     # print(np.reciprocal(RECIPROCAL_MU_MATRIX))
 
-    print(p_matrix.value[i, :] @ mu_matrix.value[i, :])
+    # print(p_matrix.value[i, :] @ mu_matrix.value[i, :])
