@@ -14,6 +14,7 @@ if __name__ == "__main__":
     
     p_matrix = cp.Parameter((REGION_NUMBER, REGION_NUMBER), nonneg=True, value=TRAVEL_MATRIX_P)  # ok
     lambda_vector = cp.Parameter(REGION_NUMBER, nonneg=True, value=CUSTOMER_ARRIVIAL_LAMBDA)   # ok
+    # mu_matrix = cp.Parameter((REGION_NUMBER, REGION_NUMBER), nonneg=True, value=RECIPROCAL_MU_MATRIX)    # ok
     mu_matrix = cp.Parameter((REGION_NUMBER, REGION_NUMBER), nonneg=True, value=np.reciprocal(RECIPROCAL_MU_MATRIX))    # ok
     
     availability_vector = cp.Variable(REGION_NUMBER, pos=True)
@@ -30,6 +31,7 @@ if __name__ == "__main__":
         for j in range(REGION_NUMBER):
             obj_expression += availability_vector[i] * lambda_vector[i] * p_matrix[i, j]    # objective function
             sup_reward += lambda_vector.value[i] * p_matrix.value[i][j] # sup_reward (availability = 1)
+            # sup_reward += lambda_vector.value[i] * availability_vector.value
             constraints += [lambda_vector[i] * p_matrix[i, j] * availability_vector[i] == mu_matrix[i, j] * f_matrix[i, j]]
             # if j != i:
             #     constraints += [mu_matrix[i, j] * e_matrix[i, j] <= mu_matrix[:, i] @ f_matrix[:, i]]
@@ -54,10 +56,27 @@ if __name__ == "__main__":
     print(prob.status)
     print(prob.value)
     # print(sup_reward)
+    # print(prob.value / sup_reward)
     
-    print(np.round(availability_vector.value, decimals=5))
-    print(np.round(e_matrix.value, decimals=5))
-    print(np.round(f_matrix.value, decimals=5))
+    # tmp = 0
+    # for i in range(REGION_NUMBER):
+    #     tmp += lambda_vector.value[i] * availability_vector.value[i]
+    # print(tmp)    
+    
+    # print(np.round(availability_vector.value, decimals=5))
+    # print(np.round(e_matrix.value, decimals=5))
+    # print(np.round(f_matrix.value, decimals=5))
+    
+    # print(p_matrix.value)
+    # print(mu_matrix.value)
+    # print(lambda_vector.value)
+    
+    # print(np.dot(availability_vector.value, lambda_vector.value))
+    # print(np.sum(lambda_vector.value))
+    
+    print(np.dot(availability_vector.value, lambda_vector.value) / np.sum(lambda_vector.value))
+    
+    
     
     # print(p_matrix.value)
     # print(mu_matrix.value)
